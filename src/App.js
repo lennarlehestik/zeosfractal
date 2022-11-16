@@ -246,9 +246,16 @@ function App(props) {
     <div className="App">
       {showButton &&
       <header className="App-header">
+
       <div class="zeos">ZEOS<br/><div class="fractal">FRACTAL</div></div>
       <img src="zeoslogo.svg" width="10%" class="logo"/>
       <button class="button-64 votebutton" role="button" onClick={() => setLanding(true)}><span class="text">Vote</span></button>
+      <div class="bg-animation">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="stars4"></div>
+    </div>
       </header>
       }
       <CSSTransition
@@ -307,11 +314,13 @@ function App(props) {
       </div>
 
       <header className="App-header">
-      <div class="input-wrapper">
-        <input onChange={(e) => setDelegate(e.target.value)} spellcheck="false" class="input-field" placeholder="Delegate"></input>
-      </div>
-      <div class="input-wrapper">
-        <input onChange={(e) => setGroupnumber(e.target.value)} spellcheck="false" class="input-field" placeholder="Group number"></input>
+      <div class="input-wrapper-top">
+        <div class="input-wrapper">
+          <input onChange={(e) => setDelegate(e.target.value)} spellcheck="false" class="input-field input-top" placeholder="Delegate"></input>
+        </div>
+        <div class="input-wrapper">
+          <input onChange={(e) => setGroupnumber(e.target.value)} spellcheck="false" class="input-field input-top2" placeholder="Group number"></input>
+        </div>
       </div>
       <div class="input-wrapper">
         <input onChange={(e) => setVote1(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 6"></input>
