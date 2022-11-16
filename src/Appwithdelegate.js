@@ -29,7 +29,7 @@ const style = {
 function App(props) {
   const [landing, setLanding] = useState(false);
   const [showButton, setShowButton] = useState(true);
-  //const [delegate, setDelegate] = useState("");
+  const [delegate, setDelegate] = useState("");
   const [groupnumber, setGroupnumber] = useState("");
   const [vote1, setVote1] = useState("");
   const [vote2, setVote2] = useState("");
@@ -97,7 +97,21 @@ function App(props) {
                   rankings: voterlist,
                 },
               },
-
+              {
+                account: "edenfractest",
+                name: "electdeleg",
+                authorization: [
+                  {
+                    actor: displayaccountname(), // use account that was logged in
+                    permission: "active",
+                  },
+                ],
+                data: {
+                  elector: displayaccountname(),
+                  delegate: delegate,
+                  groupnr: parseInt(groupnumber),
+                },
+              },
             ],
           };
           await activeUser.signTransaction(transaction, {
@@ -129,7 +143,21 @@ function App(props) {
                   rankings: voterlist,
                 },
               },
-
+              {
+                account: "edenfractest",
+                name: "electdeleg",
+                authorization: [
+                  {
+                    actor: displayaccountname(), // use account that was logged in
+                    permission: "active",
+                  },
+                ],
+                data: {
+                  elector: displayaccountname(),
+                  delegate: delegate,
+                  groupnr: parseInt(groupnumber),
+                },
+              },
             ],
 
           };
@@ -280,7 +308,9 @@ function App(props) {
 
           <header className="App-header">
 
-
+            <div class="input-wrapper">
+              <input onChange={(e) => setDelegate(e.target.value)} spellcheck="false" class="input-field" placeholder="Delegate"></input>
+            </div>
             <div class="input-wrapper">
               <input onChange={(e) => setGroupnumber(e.target.value)} spellcheck="false" class="input-field" placeholder="Group number"></input>
             </div>
