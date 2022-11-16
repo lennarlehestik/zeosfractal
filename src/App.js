@@ -218,9 +218,16 @@ function App(props) {
     <div className="App">
       {showButton &&
         <header className="App-header">
+
           <div class="zeos">ZEOS<br /><div class="fractal">FRACTAL</div></div>
           <img src="zeoslogo.svg" width="10%" class="logo" />
-          <button class="button-64 votebutton" role="button" onClick={() => setLanding(true)}><span class="text">Continue</span></button>
+          <button class="button-64 votebutton" role="button" onClick={() => setLanding(true)}><span class="text">Vote</span></button>
+          <div class="bg-animation">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+            <div id="stars4"></div>
+          </div>
         </header>
       }
       <CSSTransition
