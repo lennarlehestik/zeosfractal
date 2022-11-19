@@ -31,12 +31,12 @@ function App(props) {
   const [showButton, setShowButton] = useState(true);
   //const [delegate, setDelegate] = useState("");
   const [groupnumber, setGroupnumber] = useState("");
-  const [vote1, setVote1] = useState("");
-  const [vote2, setVote2] = useState("");
-  const [vote3, setVote3] = useState("");
-  const [vote4, setVote4] = useState("");
-  const [vote5, setVote5] = useState("");
-  const [vote6, setVote6] = useState("");
+  const [vote1, setVote1] = useState();
+  const [vote2, setVote2] = useState();
+  const [vote3, setVote3] = useState();
+  const [vote4, setVote4] = useState();
+  const [vote5, setVote5] = useState();
+  const [vote6, setVote6] = useState();
   const [accountname, setAccountName] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -221,7 +221,7 @@ function App(props) {
 
           <div class="zeos">ZEOS<br /><div class="fractal">FRACTAL</div></div>
           <img src="zeoslogo.svg" width="10%" class="logo" />
-          <button class="button-64 votebutton" role="button" onClick={() => setLanding(true)}><span class="text">Vote</span></button>
+          <button class="button-64 votebutton" role="button" onClick={() => setLanding(true)}><span class="text">Continue</span></button>
           <div class="bg-animation">
             <div id="stars"></div>
             <div id="stars2"></div>
