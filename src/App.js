@@ -37,178 +37,64 @@ function App(props) {
   const [vote4, setVote4] = useState("");
   const [vote5, setVote5] = useState("");
   const [vote6, setVote6] = useState("");
+  const [data, setData] = useState({vote1:"", vote2:"", vote3:"", vote4:"", vote5:"",vote6:""})
   const [accountname, setAccountName] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const nodeRef = useRef(null);
 
-  const sign = async () => {
-    if (activeUser) {
-      try {
-        const transaction = {
-          actions: [
-            {
-              account: "zeos.fractal",
-              name: "sign",
-              authorization: [
-                {
-                  actor: displayaccountname(), // use account that was logged in
-                  permission: "active",
+  const vote = async() => {
+    if(groupnumber){
+      let votearray = [];
+      console.log(data)
+      Object.keys(data).map((keyName, i) => {
+        let item = data[keyName]
+        if(item.length > 0){
+          votearray.push(item)
+        }
+      })
+      console.log(votearray)
+      if(activeUser){
+        try {
+          const transaction = {
+            actions: [
+              {
+                account: "eden.fractal",
+                name: "submitcons",
+                authorization: [
+                  {
+                    actor: displayaccountname(), // use account that was logged in
+                    permission: "active",
+                  },
+                ],
+                data: {
+                  submitter: displayaccountname(),
+                  groupnr: parseInt(groupnumber),
+                  rankings: votearray,
                 },
-              ],
-              data: {
-                signer: displayaccountname(),
               },
-            },
-          ],
-        };
-        await activeUser.signTransaction(transaction, {
-          broadcast: true,
-          expireSeconds: 300,
-        });
-        swal_success(`Successfully submitted!`);
-      } catch (e) {
-        swal_error(e);
+
+            ],
+          };
+          await activeUser.signTransaction(transaction, {
+            broadcast: true,
+            expireSeconds: 300,
+          });
+          swal_success(`Successfully submitted!`);
+        } catch (e) {
+          swal_error(e);
+        }
+      }
+      else{
+        swal_error("Please log in first.")
       }
     }
-  };
-
-  const vote = async () => {
-    if (activeUser) {
-      // could be more elegant than if (vote6 == "")
-      if (vote6 == "") {
-        let voterlist = [vote5, vote4, vote3, vote2, vote1];
-        try {
-          const transaction = {
-            actions: [
-              {
-                account: "zeos.fractal",
-                name: "submitcons",
-                authorization: [
-                  {
-                    actor: displayaccountname(), // use account that was logged in
-                    permission: "active",
-                  },
-                ],
-                data: {
-                  submitter: displayaccountname(),
-                  groupnr: parseInt(groupnumber),
-                  rankings: voterlist,
-                },
-              },
-
-            ],
-          };
-          await activeUser.signTransaction(transaction, {
-            broadcast: true,
-            expireSeconds: 300,
-          });
-          swal_success(`Successfully submitted!`);
-        } catch (e) {
-          swal_error(e);
-        }
-      } 
-      else if (vote6 == "" && vote5 == "") {
-        let voterlist = [vote4, vote3, vote2, vote1];
-        try {
-          const transaction = {
-            actions: [
-              {
-                account: "zeos.fractal",
-                name: "submitcons",
-                authorization: [
-                  {
-                    actor: displayaccountname(), // use account that was logged in
-                    permission: "active",
-                  },
-                ],
-                data: {
-                  submitter: displayaccountname(),
-                  groupnr: parseInt(groupnumber),
-                  rankings: voterlist,
-                },
-              },
-
-            ],
-          };
-          await activeUser.signTransaction(transaction, {
-            broadcast: true,
-            expireSeconds: 300,
-          });
-          swal_success(`Successfully submitted!`);
-        } catch (e) {
-          swal_error(e);
-        }
-      }
-      else if (vote6 == "" && vote5 == "" && vote4 == "") {
-        let voterlist = [vote3, vote2, vote1];
-        try {
-          const transaction = {
-            actions: [
-              {
-                account: "zeos.fractal",
-                name: "submitcons",
-                authorization: [
-                  {
-                    actor: displayaccountname(), // use account that was logged in
-                    permission: "active",
-                  },
-                ],
-                data: {
-                  submitter: displayaccountname(),
-                  groupnr: parseInt(groupnumber),
-                  rankings: voterlist,
-                },
-              },
-
-            ],
-          };
-          await activeUser.signTransaction(transaction, {
-            broadcast: true,
-            expireSeconds: 300,
-          });
-          swal_success(`Successfully submitted!`);
-        } catch (e) {
-          swal_error(e);
-        }
-      }
-      else {
-        let voterlist = [vote6, vote5, vote4, vote3, vote2, vote1];
-        console.log(voterlist);
-        try {
-          const transaction = {
-            actions: [
-              {
-                account: "zeos.fractal",
-                name: "submitcons",
-                authorization: [
-                  {
-                    actor: displayaccountname(), // use account that was logged in
-                    permission: "active",
-                  },
-                ],
-                data: {
-                  submitter: displayaccountname(),
-                  groupnr: parseInt(groupnumber),
-                  rankings: voterlist,
-                },
-              },
-
-            ],
-
-          };
-          await activeUser.signTransaction(transaction, {
-            broadcast: true,
-            expireSeconds: 300,
-          });
-          swal_success(`Successfully submitted!`);
-        } catch (e) {
-          swal_error(e);
-        }
-      }
+    else{
+      swal_error("Group number missing.")
     }
-  };
+  }
+
   const swal_success = (message) => {
     const Toast = Swal.mixin({
       toast: true,
@@ -270,6 +156,12 @@ function App(props) {
     setAccountName("");
   };
 
+  const setVote = (value, key) => {
+    let datatemp = data;
+    datatemp[key] = value;
+    setData(datatemp)
+  }
+
   /*
           <TextField
             onChange={(e) => setSubmitter(e.target.value)}
@@ -326,7 +218,7 @@ function App(props) {
             .
           </Typography>
               <br></br>
-              <button class="button-64 buttonwidth" role="button" 
+              <button class="button-64 buttonwidth" role="button"
 
                 variant="contained"
                 sx={{ width: "100%" }}
@@ -352,29 +244,14 @@ function App(props) {
           </div>
 
           <header className="App-header">
-
-
+          <div class="input-wrapper">
+              <input onBlur={(e) => setGroupnumber(e.target.value)} spellcheck="false" class="input-field" placeholder="Group Number"></input>
+          </div>
+            {Object.keys(data).map((key, index) => (
             <div class="input-wrapper">
-              <input onChange={(e) => setGroupnumber(e.target.value)} spellcheck="false" class="input-field" placeholder="Group number"></input>
+              <input onBlur={(e) => setVote(e.target.value, key)} spellcheck="false" class="input-field" placeholder={"Level " + (index+1)}></input>
             </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote1(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 6"></input>
-            </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote2(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 5"></input>
-            </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote3(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 4"></input>
-            </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote4(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 3"></input>
-            </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote5(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 2"></input>
-            </div>
-            <div class="input-wrapper">
-              <input onChange={(e) => setVote6(e.target.value)} spellcheck="false" class="input-field" placeholder="Level 1"></input>
-            </div>
+            ))}
             <button class="button-64" role="button" onClick={() => vote()}><span class="text">Submit</span></button>
           </header>
         </div>
