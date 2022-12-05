@@ -250,7 +250,7 @@ function App(props) {
           </div>
             {Object.keys(data).map((key, index) => (
             <div class="input-wrapper">
-              <input onBlur={(e) => setVote(e.target.value, key)} spellcheck="false" class="input-field" placeholder={"Level " + (index+1)}></input>
+              <input onBlur={(e) => setVote(e.target.value, key)} spellcheck="false" class="input-field" placeholder={"Level " + (Object.keys(data).length - index)}></input>
             </div>
             ))}
             <button class="button-64" role="button" onClick={() => vote()}><span class="text">Submit</span></button>
