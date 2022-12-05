@@ -60,7 +60,7 @@ function App(props) {
           const transaction = {
             actions: [
               {
-                account: "eden.fractal",
+                account: "zeos.fractal",
                 name: "submitcons",
                 authorization: [
                   {
