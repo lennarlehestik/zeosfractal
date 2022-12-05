@@ -49,7 +49,7 @@ function App(props) {
         const transaction = {
           actions: [
             {
-              account: "eden.fractal",
+              account: "zeos.fractal",
               name: "sign",
               authorization: [
                 {
@@ -83,7 +83,7 @@ function App(props) {
           const transaction = {
             actions: [
               {
-                account: "eden.fractal",
+                account: "zeos.fractal",
                 name: "submitcons",
                 authorization: [
                   {
@@ -98,7 +98,7 @@ function App(props) {
                 },
               },
               {
-                account: "edenfractest",
+                account: "zeos.fractal",
                 name: "electdeleg",
                 authorization: [
                   {
@@ -129,7 +129,7 @@ function App(props) {
           const transaction = {
             actions: [
               {
-                account: "eden.fractal",
+                account: "zeos.fractal",
                 name: "submitcons",
                 authorization: [
                   {
@@ -144,7 +144,7 @@ function App(props) {
                 },
               },
               {
-                account: "edenfractest",
+                account: "zeos.fractal",
                 name: "electdeleg",
                 authorization: [
                   {

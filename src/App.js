@@ -49,7 +49,7 @@ function App(props) {
         const transaction = {
           actions: [
             {
-              account: "eden.fractal",
+              account: "zeos.fractal",
               name: "sign",
               authorization: [
                 {
@@ -83,7 +83,7 @@ function App(props) {
           const transaction = {
             actions: [
               {
-                account: "eden.fractal",
+                account: "zeos.fractal",
                 name: "submitcons",
                 authorization: [
                   {
@@ -108,14 +108,79 @@ function App(props) {
         } catch (e) {
           swal_error(e);
         }
-      } else {
+      } 
+      else if (vote6 == "" && vote5 == "") {
+        let voterlist = [vote4, vote3, vote2, vote1];
+        try {
+          const transaction = {
+            actions: [
+              {
+                account: "zeos.fractal",
+                name: "submitcons",
+                authorization: [
+                  {
+                    actor: displayaccountname(), // use account that was logged in
+                    permission: "active",
+                  },
+                ],
+                data: {
+                  submitter: displayaccountname(),
+                  groupnr: parseInt(groupnumber),
+                  rankings: voterlist,
+                },
+              },
+
+            ],
+          };
+          await activeUser.signTransaction(transaction, {
+            broadcast: true,
+            expireSeconds: 300,
+          });
+          swal_success(`Successfully submitted!`);
+        } catch (e) {
+          swal_error(e);
+        }
+      }
+      else if (vote6 == "" && vote5 == "" && vote4 == "") {
+        let voterlist = [vote3, vote2, vote1];
+        try {
+          const transaction = {
+            actions: [
+              {
+                account: "zeos.fractal",
+                name: "submitcons",
+                authorization: [
+                  {
+                    actor: displayaccountname(), // use account that was logged in
+                    permission: "active",
+                  },
+                ],
+                data: {
+                  submitter: displayaccountname(),
+                  groupnr: parseInt(groupnumber),
+                  rankings: voterlist,
+                },
+              },
+
+            ],
+          };
+          await activeUser.signTransaction(transaction, {
+            broadcast: true,
+            expireSeconds: 300,
+          });
+          swal_success(`Successfully submitted!`);
+        } catch (e) {
+          swal_error(e);
+        }
+      }
+      else {
         let voterlist = [vote6, vote5, vote4, vote3, vote2, vote1];
         console.log(voterlist);
         try {
           const transaction = {
             actions: [
               {
-                account: "eden.fractal",
+                account: "zeos.fractal",
                 name: "submitcons",
                 authorization: [
                   {
@@ -261,13 +326,14 @@ function App(props) {
             .
           </Typography>
               <br></br>
-              <Button
+              <button class="button-64 buttonwidth" role="button" 
+
                 variant="contained"
                 sx={{ width: "100%" }}
               //onClick={() => sign()}
               >
                 Invite
-          </Button>
+                </button>
             </Box>
           </Modal>
           <div class="main-menu">
