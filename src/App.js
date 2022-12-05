@@ -55,6 +55,7 @@ function App(props) {
         }
       })
       console.log(votearray)
+      votearray.reverse()
       if(activeUser){
         try {
           const transaction = {
